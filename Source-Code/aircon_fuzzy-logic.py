@@ -112,7 +112,15 @@ class AirconApp:
         return {"Cool": cool, "Warm": warm, "Hot": hot}
 
     def cool_membership(self, temp):
-        return self.triangular_membership(temp, 10, 16, 18)
+        if temp <= 10:
+            return 1
+        elif 10 < temp < 16:
+            return (temp - 10) / (16 - 10)
+        elif 16 <= temp <= 18:
+            return 1
+        elif 18 < temp < 21:
+            return (21 - temp) / (21 - 18)
+        return 0
 
     def warm_membership(self, temp):
         if 18 < temp < 24:
