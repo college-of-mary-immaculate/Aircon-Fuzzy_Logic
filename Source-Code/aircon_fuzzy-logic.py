@@ -66,6 +66,12 @@ class AirconApp:
         try:
             self.entered_temp = float(self.temp_entry.get())
 
+            if self.entered_temp == 18:
+                self.result_label.config(text="Temperature 18°C detected, switching to Fan Mode...")
+                self.show_fan_mode()  
+                self.remote_window.destroy()  
+                return
+
             if 10 <= self.entered_temp <= 30:  
                 condition = self.fuzzy_logic(self.entered_temp)
                 humidity = self.calculate_humidity(self.entered_temp)
@@ -85,7 +91,7 @@ class AirconApp:
                     self.start_countdown(10, self.entered_temp)
                     self.remote_window.after(10000, self.remote_window.destroy)
             else:
-                self.result_label.config(text="Please enter a temperature between 16 and 30 °C.")
+                self.result_label.config(text="Please enter a temperature between 10 and 30 °C.")
         except ValueError:
             self.result_label.config(text="Please enter a valid number.")
 
@@ -106,31 +112,32 @@ class AirconApp:
         return {"Cool": cool, "Warm": warm, "Hot": hot}
 
     def cool_membership(self, temp):
-        if temp <= 10:
-            return 1
-        elif 10 < temp < 16:
-            return (temp - 10) / (16 - 10)
-        elif 16 <= temp <= 18:
-            return 1
-        elif 18 < temp < 21:
-            return (21 - temp) / (21 - 18)
-        return 0
+        return self.triangular_membership(temp, 10, 16, 18)
 
     def warm_membership(self, temp):
         if 18 < temp < 24:
-            return (temp - 18) / (24 - 18)
+            return (temp - 18) / (24 - 18) 
         elif 24 <= temp <= 26:
-            return 1
+            return 1  
         elif 26 < temp < 30:
-            return (30 - temp) / (30 - 26)
-        return 0
+            return (30 - temp) / (30 - 26)  
+        return 0  
 
     def hot_membership(self, temp):
         if temp < 26:
-            return 0
+            return 0  
         elif 26 <= temp < 30:
-            return (temp - 26) / (30 - 26)
-        return 1
+            return (temp - 26) / (30 - 26)  
+        return 1  
+
+    def triangular_membership(self, x, a, b, c):
+        if x <= a or x >= c:
+            return 0
+        elif a < x < b:
+            return (x - a) / (b - a)  
+        elif b <= x < c:
+            return (c - x) / (c - b)  
+        return 0
 
     def calculate_humidity(self, temp):
         if temp >= 25:
@@ -207,8 +214,8 @@ class AirconApp:
             self.fan_label = tk.Label(self.fan_window)
             self.fan_label.pack()
 
-            self.temp_label_fan = tk.Label(self.fan_window, text=f"Entered Temp: {self.entered_temp:.1f}°C",
-                                           font=("Fixedsys", 20), fg="black")
+            self.temp_label_fan = tk.Label(self.fan_window, text=f"Entered Temp: {self.entered_temp}°C",
+                                            font=("Fixedsys", 20), fg="black")
             self.temp_label_fan.place(relx=0.5, rely=0.2, anchor="center")
 
             self.final_temp_label_fan = tk.Label(self.fan_window, text=f"Final Temp: {final_temp:.1f}°C",
