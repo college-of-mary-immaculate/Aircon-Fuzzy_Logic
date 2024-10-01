@@ -16,9 +16,13 @@ pip install Pillow
 ## HOW TO USE 📃
 
 1.Clone or download the repository containing this project.
+
 2.Install the required packages using the pip install Pillow command.
+
 3.Ensure that the GIF files (main.gif, cold.gif, fan.gif) are located in the same directory as the Python script. (In this case, I uploaded a folder named, 'Source Code', make sure that when you open the code/folder in your chosen IDE, make sure that you open the folder itself, containing the GIF files. )
+
 4.Run the Python script:
+
 5.The application will launch with an animated background. Press the "Enter Temperature" button, input a temperature. The air conditioner will switch to cooling or fan mode based on the fuzzy logic system.
 
 Fuzzy Logic Temperature Ranges: 🖇️
@@ -28,7 +32,7 @@ Fuzzy Logic Temperature Ranges: 🖇️
 
 🍃 Warm Mode:
    - Defined for temperatures ranging from 18°C to 30°C, with a peak value at 24°C.
-   
+
 🥵 Hot Mode: If the temperature is above 26°C, the system will play the cooling GIF and transition to fan mode after a set time.
    - Defined for temperatures above 26°C.
 
