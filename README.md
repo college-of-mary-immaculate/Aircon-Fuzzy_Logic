@@ -25,8 +25,10 @@ Fuzzy Logic Temperature Ranges: 🖇️
 
 ❄️ Cool Membership Function:
    - Defined for temperatures ranging from 10°C to 18°C.
+
 🍃 Warm Mode:
    - Defined for temperatures ranging from 18°C to 30°C, with a peak value at 24°C.
+   
 🥵 Hot Mode: If the temperature is above 26°C, the system will play the cooling GIF and transition to fan mode after a set time.
    - Defined for temperatures above 26°C.
 
